@@ -99,29 +99,44 @@ export default class Game {
 
     onAllAssetsLoaded() {
         this.buildGameEnv();
+        let qTimeout = undefined;
+        let spaceTimeout = undefined;
         const playerTank = this.#gameEnv.tanks.player;
 
         document.addEventListener('keydown', (event) => {
+            if (playerTank.dead) return;
             playerTank.setKeyPressedState(event.key, true);
-            let to = undefined;
-            let to2 = undefined;
 
             if(event.key === 'q') {
+                if (qTimeout) return;
+
                 playerTank.shootType = 'disperse';
-                clearTimeout(to);
-                to = setTimeout(() => {
+
+                qTimeout = setTimeout(() => {
                     if(playerTank.shootType === 'disperse') playerTank.shootType = 'normal';
+                    clearTimeout(qTimeout);
+                    qTimeout = undefined;
                 }, 8000);
             }
 
             if(event.key === ' ') {
-                const currentSpd = playerTank.attackSpeed;
-                playerTank.attackSpeed = 180;
-                playerTank.shootType = 'twelveDisperse';
-                to2 && clearTimeout(to2);
-                to2 = setTimeout(() => {
-                    playerTank.attackSpeed = currentSpd;
-                    if(playerTank.shootType === 'twelveDisperse') playerTank.shootType = 'normal';
+                if (spaceTimeout) return;
+
+                const currentAtkSpd = playerTank.attackSpeed;
+                const currentMvmSpeed = playerTank.speed;
+                const currentBulletSpeed = playerTank.bulletSpeed;
+                playerTank.attackSpeed = currentAtkSpd * 200 / 100;
+                playerTank.speed = currentMvmSpeed * 150 / 100;
+                playerTank.bulletSpeed = currentBulletSpeed * 150 / 100;
+                playerTank.shootType = 'fiveDisperse';
+                
+                spaceTimeout = setTimeout(() => {
+                    playerTank.attackSpeed = currentAtkSpd;
+                    playerTank.speed = currentMvmSpeed;
+                    playerTank.bulletSpeed = currentBulletSpeed;
+                    if(playerTank.shootType === 'fiveDisperse') playerTank.shootType = 'normal';
+                    clearTimeout(spaceTimeout);
+                    spaceTimeout = undefined;
                 }, 3000);
             }
         });
@@ -271,8 +286,8 @@ export default class Game {
         this.#mousePlace = { clientX: mouseX, clientY: mouseY };
     }
 
-    startGameLoop() {
-        const tickRate = 1000 / 60; // 60 FPS cố định
+    startGameLoop() { // Tạm thời dùng interval để draw thay requestAnimationFrame
+        const tickRate = 1000 / 64;
         setInterval(() => this.draw(), tickRate);
     }
     
@@ -287,10 +302,10 @@ export default class Game {
         this.#ctx.drawImage(this.#assetLoader.getImage('map.01'), 0, 0, mapWidth, mapHeight);
         this.#gameDrawer.drawTanks();
         this.#gameDrawer.drawMap();
+        this.#ctx.drawImage(this.#assetLoader.getImage('map.01.layer2'), 0, 0, mapWidth, mapHeight);
         this.#gameDrawer.drawBullet();
         this.#gameDrawer.drawCollisionEffect();
-        this.#ctx.drawImage(this.#assetLoader.getImage('map.01.layer2'), 0, 0, mapWidth, mapHeight);
-    
+
         this.#gameEnv.tanks.player.move(this.#camera);
     
         this.#ctx.restore();

@@ -33,7 +33,7 @@ export default class Tank {
             const color = diff > 0 ? "rgb(0, 180, 0)" : "rgb(240, 0, 0)";
             if(this.angles.length === 0) this.angles = [...this.defaultAngles];
             const angle = this.angles.shift();
-            this.#effects.push(new Effect(value, color, x, y, angle, this.#display.height * 0.16)); // Điều chỉnh speed
+            this.#effects.push(new Effect(value, color, x, y, angle, this.#display.height * 0.165)); // Điều chỉnh speed
         }
     
         this.#stats.hp = hp;
