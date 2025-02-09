@@ -1,0 +1,19 @@
+{
+    "demo": {
+        "name": "demo",
+        "size": {
+            "radius": 75
+        },
+        "stats": {
+            "type": 1,
+            "maxHp": 2981,
+            "atk": 226,
+            "pen": 21,
+            "def": [21, 27],
+            "spd": 170,
+            "fireRate": 85,
+            "fireRange": 408,
+            "bulletSpd": 10
+        }
+    }
+}

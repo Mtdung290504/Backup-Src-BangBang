@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.4" />
+    <title>Bang Bang</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0;
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+            background-color: #000;
+            height: 100dvh;
+            width: 100dvw;
+            overflow: hidden;
+        }
+
+        #start {
+            padding: 10px 50px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        canvas {
+            background-color: #000;
+            display: block;
+        }
+    </style>
+    <script src="src/index.js" type="module" async></script>
+    <!-- <script src="dist/bundle.js" type="module" async></script> -->
+</head>
+
+<body>
+    <button id="start">
+        Vào game >
+    </button>
+</body>
+
+</html>
