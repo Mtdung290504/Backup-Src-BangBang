@@ -94,7 +94,7 @@ export default class Game {
         this.#assetLoader.loadImage('tank.demo.bullet', 'assets/images/tanks/demo/bullet.png');
         this.#assetLoader.loadImage('tank.demo.collision', 'assets/images/tanks/demo/collision.png');
         this.#assetLoader.loadImage('map.01', 'assets/images/maps/map-01/bg_optimized.jpeg');
-        this.#assetLoader.loadImage('map.01.layer2', 'assets/images/maps/map-01/bg_layer2_optimized.png');
+        this.#assetLoader.loadImage('map.01.layer2', 'assets/images/maps/map-01/bg_layer2_optimized.webp');
     }
 
     onAllAssetsLoaded() {

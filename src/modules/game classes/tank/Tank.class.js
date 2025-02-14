@@ -13,7 +13,7 @@ export default class Tank {
     shootType = undefined;
 
     get dead() { return this.#dead; }
-    set dead(dead) { 
+    set dead(dead) {
         this.#dead = dead;
         if(!this.#dead) 
             this.revive();
